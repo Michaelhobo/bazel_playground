@@ -1,4 +1,4 @@
-load("//:sdk_config.bzl", "sdk_config_transition")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
 
 cc_library(
@@ -27,7 +27,7 @@ cc_binary(
 cc_library(
     name = "lib",
     hdrs = ["lib.h"],
-    includes = ["a"], # Why does replacing "a" with ":sdk_config_dir not work?
-    deps = [":sdk_config"],
+    includes = ["a"],  # Why does replacing "a" with ":sdk_config_dir not work?
     visibility = ["//visibility:public"],
+    deps = [":sdk_config"],
 )
