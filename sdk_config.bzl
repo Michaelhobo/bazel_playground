@@ -3,7 +3,8 @@
 
 def _impl(settings, attr):
     _ignore = settings
-    return {"//:sdk_config": "//a:sdk_config"}  # some user-defined value...
+    print("_impl attr: {}".format(attr))
+    return {"//:sdk_config": attr.sdk_config}
 
 sdk_config_transition = transition(
     implementation = _impl,
@@ -12,13 +13,17 @@ sdk_config_transition = transition(
 )
 
 def _do_transition(ctx):
-    return [ctx.attr.dep[0][DefaultInfo]]
+    print("_do_transition ctx.attr: {}".format(ctx.attr))
+    return [ctx.attr.bin[0][CcInfo]]
 
 do_transition = rule(
     implementation = _do_transition,
     attrs = {
-        "dep": attr.label(cfg = sdk_config_transition),
-        # "sdk_config": attr.label(),
+        "bin": attr.label(
+            cfg = sdk_config_transition,
+            executable = True,
+        ),
+        "sdk_config": attr.label(),
         "_whitelist_function_transition": attr.label(
             default = "@bazel_tools//tools/whitelists/function_transition_whitelist",
         ),

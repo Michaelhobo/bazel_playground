@@ -9,8 +9,8 @@ cc_binary(
 
 do_transition(
     name = "configured_bin",
-    dep = ":bin",
-    # sdk_config = ":sdk_config",
+    bin = ":bin",
+    sdk_config = ":sdk_config",
 )
 
 cc_library(
