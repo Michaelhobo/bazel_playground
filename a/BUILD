@@ -1,16 +1,11 @@
-load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
-load("//:sdk_config.bzl", "do_transition")
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//:sdk_config.bzl", "nrf52_cc_binary")
 
-cc_binary(
+nrf52_cc_binary(
     name = "bin",
     srcs = ["bin.cc"],
-    deps = ["//:lib"],
-)
-
-do_transition(
-    name = "configured_bin",
-    bin = ":bin",
     sdk_config = ":sdk_config",
+    deps = ["//:lib"],
 )
 
 cc_library(
