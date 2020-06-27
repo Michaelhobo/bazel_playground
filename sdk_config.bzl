@@ -1,5 +1,6 @@
 """ This configures the nrf52 sdk_config.h as a transition.
 """
+
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 def _sdk_config_transition_impl(settings, attr):

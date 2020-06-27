@@ -1,5 +1,7 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load("@bazel_skylib//rules:common_settings.bzl", "string_flag")
+load("@io_bazel_rules_go//go:def.bzl", "go_path")
 
 cc_library(
     name = "default_config",
@@ -30,4 +32,20 @@ cc_library(
     includes = ["a"],  # Why does replacing "a" with ":sdk_config_dir not work?
     visibility = ["//visibility:public"],
     deps = [":sdk_config"],
+)
+
+gazelle(
+    name = "gazelle",
+    extra_args = [
+        "--build_file_name=BUILD",
+    ],
+    prefix = "github.com/Michaelhobo/bazel_playground",
+)
+
+go_path(
+    name = "gopath",
+    mode = "link",
+    deps = [
+        "//tools:buildgen",
+    ],
 )
