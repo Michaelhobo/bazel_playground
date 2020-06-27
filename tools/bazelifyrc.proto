@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+// Configuration configures the behavior of the nrf52bazelify tool.
+message Configuration {
+  // Maps target name to a Bazel label override.
+  map<string, string> target_overrides = 1;
+}
